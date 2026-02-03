@@ -1,0 +1,24 @@
+{
+    "app": {
+        "name": "GoTicket",
+        "port": "8080",
+        "mode": "debug"
+    },
+    "database": {
+        "dsn": "root:root@tcp(127.0.0.1:3306)/goticket?charset=utf8mb4&parseTime=True&loc=Local",
+        "max_idle": 10,
+        "max_open": 100
+    },
+    "redis": {
+        "addr": "127.0.0.1:6379",
+        "password": "",
+        "db": 0
+    },
+    "kafka": {
+        "brokers": [
+            "127.0.0.1:9092"
+        ],
+        "topic": "ticket_bookings",
+        "group_id": "goticket_group"
+    }
+}
