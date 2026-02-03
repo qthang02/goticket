@@ -11,3 +11,6 @@ down:
 
 logs:
 	docker compose logs -f
+
+seed:
+	go run cmd/seeder/main.go
