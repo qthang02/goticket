@@ -30,8 +30,13 @@ func main() {
 
 	// 4. Auto Migrate (Quick schema creation for dev)
 	logger.Info("Running AutoMigrate...")
-	err = db.AutoMigrate(&entity.User{}, &entity.Event{}, &entity.Ticket{}, &entity.Order{})
-	if err != nil {
+	if err := db.AutoMigrate(
+		&entity.User{},
+		&entity.Event{},
+		&entity.Ticket{},
+		&entity.Order{},
+		&entity.Outbox{},
+	); err != nil {
 		logger.Error("Migration failed", zap.Error(err))
 		return
 	}
