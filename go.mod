@@ -2,8 +2,6 @@ module github.com/qthang02/goticket
 
 go 1.23.0
 
-toolchain go1.24.0
-
 require (
 	github.com/gin-gonic/gin v1.11.0
 	github.com/redis/go-redis/v9 v9.17.3
