@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/qthang02/goticket/internal/entity"
@@ -187,8 +188,15 @@ func (u *ticketUsecase) BookTicket(ctx context.Context, userID, ticketID uint64,
 
 	if err != nil {
 		logger.Error("Transaction failed", zap.Error(err))
+
 		// Rollback Redis Stock (Compensating Transaction)
 		u.redis.IncrBy(ctx, stockKey, int64(quantity))
+
+		// Check for duplicate entry (MySQL Error 1062)
+		if strings.Contains(err.Error(), "Duplicate entry") {
+			return nil, errors.New("duplicate request: processing or completed")
+		}
+
 		return nil, errors.New("failed to process order")
 	}
 
